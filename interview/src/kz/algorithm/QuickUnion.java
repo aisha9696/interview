@@ -42,6 +42,7 @@ public class QuickUnion {
         qu.union(0,2);
         qu.union(9,2);
         qu.union(1,6);
+        qu.union(4,9);
         qu.getElem();
         System.out.println("is 4,6 are connected " + qu.connected(4,6));
         System.out.println("is 7,6 are connected " + qu.connected(7,6));
