@@ -11,32 +11,32 @@ public class PercolationVizualizer {
     Map<Integer, Map<Integer, Integer>> jbuttons;
     int num;
     JButton buttons[];
-    int [][]data;
+    int[][] data;
 
     public PercolationVizualizer(int N) {
         this.num = N;
-        this.buttons =new JButton[N*N];
+        this.buttons = new JButton[N * N];
         this.data = new int[N][N];
     }
 
 
-    private void visualize(){
+    private void visualize() {
 
         JFrame simulation = new JFrame();
 
         JPanel pTop = new JPanel();
         pTop.setBackground(Color.PINK);
         pTop.setBounds(10, 10, 600, 40);
-        JButton newBoardButton =new JButton("New Board");
-        newBoardButton.setBounds(0,0,45,10);
+        JButton newBoardButton = new JButton("New Board");
+        newBoardButton.setBounds(0, 0, 45, 10);
         newBoardButton.setBackground(Color.white);
         JButton percolateButton = new JButton("Test Percolation");
-        percolateButton.setBounds(0,0,45,10);
+        percolateButton.setBounds(0, 0, 45, 10);
         percolateButton.setBackground(Color.white);
         pTop.add(newBoardButton);
         pTop.add(percolateButton);
-        int[] xAxis = new int[num*num];
-        int[] yAxis = new int[num*num];
+        int[] xAxis = new int[num * num];
+        int[] yAxis = new int[num * num];
 
         JPanel ptable = new JPanel();
         ptable.setBackground(Color.LIGHT_GRAY);
@@ -46,33 +46,38 @@ public class PercolationVizualizer {
         int xaxis = 0;
         int yaxis = 0;
         for (int i = 0; i < num; i++) {
-            for (int j = 0; j < num; j ++) {
+            for (int j = 0; j < num; j++) {
                 buttons[count] = new JButton();
-                buttons[count].setBounds(xaxis,yaxis,5,5);
+                buttons[count].setBounds(xaxis, yaxis, 5, 5);
                 ptable.add(buttons[count]);
                 xAxis[count] = i;
                 yAxis[count] = j;
                 data[i][j] = 0;
                 count++;
-                yaxis +=5;
+                yaxis += 5;
             }
-            xaxis+=5;
-            yaxis=0;
+            xaxis += 5;
+            yaxis = 0;
         }
-        ptable.setLayout(new GridLayout(num,num));
+        ptable.setLayout(new GridLayout(num, num));
+
+
+        JPanel pBottom = new JPanel();
+        pBottom.setBackground(Color.PINK);
+        pBottom.setBounds(10, 700, 600, 30);
 
         newBoardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(int i =0; i<num*num; i++){
+                for (int i = 0; i < num * num; i++) {
                     buttons[i].setBackground(Color.BLACK);
                 }
 
                 Random random = new Random();
-                for (int i =0; i<(num*num*0.5); i++){
-                    int toColor = random.nextInt(num*num);
+                for (int i = 0; i < (num * num * 0.5); i++) {
+                    int toColor = random.nextInt(num * num);
                     buttons[toColor].setBackground(Color.WHITE);
-                    data[xAxis[toColor]][yAxis[toColor]] =1;
+                    data[xAxis[toColor]][yAxis[toColor]] = 1;
                 }
             }
         });
@@ -80,14 +85,27 @@ public class PercolationVizualizer {
         percolateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Percolation perc = new Percolation(num, data);
+                int index = 0;
+                for (int i = 0; i < num; i++) {
+                    for (int j = 0; j < num; j++) {
+                        if (perc.isOpen(i, j)) {
+                            if (perc.isVtop(i)) {
+                                buttons[index].setBackground(Color.BLUE);
+                            }else{
+
+                            }
+
+
+                        }
+
+                        index++;
+                    }
+                }
 
             }
         });
 
-
-        JPanel pBottom = new JPanel();
-        pBottom.setBackground(Color.PINK);
-        pBottom.setBounds(10, 700, 600, 30);
 
         simulation.add(pTop);
         simulation.add(ptable);
@@ -99,7 +117,7 @@ public class PercolationVizualizer {
 
     public static void main(String[] args) {
         int N = 20;
-        PercolationVizualizer vizualizer  =new PercolationVizualizer(N);
+        PercolationVizualizer vizualizer = new PercolationVizualizer(N);
         vizualizer.visualize();
     }
 }
