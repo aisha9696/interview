@@ -12,11 +12,16 @@ public class PercolationVizualizer {
     int num;
     JButton buttons[];
     int[][] data;
+    int[][] data_number;
+    Percolation perc;
+    double persent_of_perc;
 
-    public PercolationVizualizer(int N) {
+    public PercolationVizualizer(int N, double persent_of_perc) {
         this.num = N;
         this.buttons = new JButton[N * N];
         this.data = new int[N][N];
+        this.data_number = new int[N][N];
+        this.persent_of_perc = persent_of_perc;
     }
 
 
@@ -53,6 +58,7 @@ public class PercolationVizualizer {
                 xAxis[count] = i;
                 yAxis[count] = j;
                 data[i][j] = 0;
+                data_number[i][j] = count;
                 count++;
                 yaxis += 5;
             }
@@ -66,43 +72,41 @@ public class PercolationVizualizer {
         pBottom.setBackground(Color.PINK);
         pBottom.setBounds(10, 700, 600, 30);
 
+        JLabel l1 = new JLabel("");
+        pBottom.add(l1);
+
+
         newBoardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                perc = null;
                 for (int i = 0; i < num * num; i++) {
                     buttons[i].setBackground(Color.BLACK);
+                    data[xAxis[i]][yAxis[i]] = 0;
                 }
-
                 Random random = new Random();
-                for (int i = 0; i < (num * num * 0.5); i++) {
+                for (int i = 0; i < (num * num * persent_of_perc); i++) {
                     int toColor = random.nextInt(num * num);
                     buttons[toColor].setBackground(Color.WHITE);
                     data[xAxis[toColor]][yAxis[toColor]] = 1;
                 }
+                perc = new Percolation(num, data, data_number);
+                perc.connectVNumber();
+                perc.percolate();
+                l1.setText("");
             }
         });
 
         percolateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Percolation perc = new Percolation(num, data);
-                int index = 0;
                 for (int i = 0; i < num; i++) {
                     for (int j = 0; j < num; j++) {
-                        if (perc.isOpen(i, j)) {
-                            if (perc.isVtop(i)) {
-                                buttons[index].setBackground(Color.BLUE);
-                            }else{
-
-                            }
-
-
-                        }
-
-                        index++;
+                        if (perc.isFull(i, j)) buttons[data_number[i][j]].setBackground(Color.BLUE);
                     }
                 }
-
+                if (perc.isPercolate()) l1.setText("System percolate!");
+                else l1.setText("System isn't percolate!");
             }
         });
 
@@ -116,8 +120,8 @@ public class PercolationVizualizer {
     }
 
     public static void main(String[] args) {
-        int N = 20;
-        PercolationVizualizer vizualizer = new PercolationVizualizer(N);
+        int N = 50;
+        PercolationVizualizer vizualizer = new PercolationVizualizer(10,0.5);
         vizualizer.visualize();
     }
 }
