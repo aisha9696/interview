@@ -1,10 +1,12 @@
-package kz.algorithm;
+package kz.algorithm.percolation;
 
+
+import kz.algorithm.week1.QuickUnionWeightedComp;
 
 public class Percolation {
     int[][] desk;
     int n;
-    QuickUnionWeightedComp quwc;
+    public QuickUnionWeightedComp quwc;
     int[][] number_desk;
     boolean firstTop = true;
     boolean firstBottom= true;

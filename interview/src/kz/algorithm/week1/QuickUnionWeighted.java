@@ -1,4 +1,4 @@
-package kz.algorithm;
+package kz.algorithm.week1;
 
 public class QuickUnionWeighted extends QuickUnion {
     int sz[];
@@ -11,7 +11,7 @@ public class QuickUnionWeighted extends QuickUnion {
     }
 
 
-    void union(int q, int p){
+    public void union(int q, int p){
         int i = root(q);
         int j = root(p);
         if(i == j) return;

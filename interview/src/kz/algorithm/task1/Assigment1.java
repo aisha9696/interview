@@ -1,7 +1,4 @@
-    package kz.algorithm;
-
-    import java.util.HashMap;
-    import java.util.Map;
+    package kz.algorithm.task1;
 
     public class Assigment1 {
 

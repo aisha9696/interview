@@ -1,4 +1,4 @@
-package kz.algorithm;
+package kz.algorithm.week1;
 
 public class QuickFind {
     int id[];

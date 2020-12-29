@@ -1,7 +1,7 @@
-package kz.algorithm;
+package kz.algorithm.week1;
 
 public class QuickUnionWeightedComp extends QuickUnionWeighted {
-    QuickUnionWeightedComp(int N) {
+    public QuickUnionWeightedComp(int N) {
         super(N);
     }
     int root(int k){

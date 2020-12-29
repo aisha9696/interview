@@ -1,11 +1,10 @@
-package kz.algorithm;
+package kz.algorithm.percolation;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
-import java.util.List;
 
 public class PercolationVizualizer {
     Map<Integer, Map<Integer, Integer>> jbuttons;
@@ -121,7 +120,7 @@ public class PercolationVizualizer {
 
     public static void main(String[] args) {
         int N = 50;
-        PercolationVizualizer vizualizer = new PercolationVizualizer(10,0.5);
+        PercolationVizualizer vizualizer = new PercolationVizualizer(30,0.78);
         vizualizer.visualize();
     }
 }

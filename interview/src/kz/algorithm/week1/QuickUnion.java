@@ -1,4 +1,4 @@
-package kz.algorithm;
+package kz.algorithm.week1;
 
 public class QuickUnion {
     int id[];
@@ -29,7 +29,7 @@ public class QuickUnion {
         this.id[i] = j;
     }
 
-    boolean connected(int q, int p){
+    public boolean connected(int q, int p){
         return root(q) == root(p);
     }
     public static void main(String[] args) {
