@@ -1,7 +1,5 @@
 package kz.algorithm;
 
-import javax.swing.*;
-import java.awt.*;
 
 public class Percolation {
     int[][] desk;
