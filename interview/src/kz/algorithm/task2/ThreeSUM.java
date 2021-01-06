@@ -1,6 +1,14 @@
 package kz.algorithm.task2;
 
+import edu.princeton.cs.algs4.Quick;
+import kz.algorithm.sort.QuickSort;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class ThreeSUM {
+    private static QuickSort quickSort = new QuickSort();
+
 
     public static int BruteForce(int a[]) {
         int N = a.length;
@@ -15,13 +23,33 @@ public class ThreeSUM {
         return count;
     }
 
-    public static int improved3Sum(int a[]){
+    public static int improved3Sum(int a[]) {
+        quickSort.sortedInt(a, 0, a.length - 1);
+        int count = 0;
 
-        return -1;
+        for (int i = 0; i < a.length - 1; i++) {
+            int L = i;
+            int R = a.length - 1;
+            while ( (L < R) && (L+1!=R)) {
+                int sumtotal = a[i] + a[L + 1] + a[R];
+                if (sumtotal == 0) {
+                    System.out.println(""+ a[i] +" " +a[L + 1] +" "+ a[R]);
+                    count++;
+                    L++;
+                } else if (sumtotal > 0) {
+                    R--;
+                } else if (sumtotal < 0) {
+                    L++;
+                }
+            }
+        }
+        return count;
     }
+
 
     public static void main(String[] args) {
         int[] a = {30, -40, -20, -10, 40, 0, 10, 5};
         System.out.println("Brute force " + BruteForce(a));
+        System.out.println("Improved 3Sum " + improved3Sum(a));
     }
 }
