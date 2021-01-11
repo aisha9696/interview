@@ -1,5 +1,8 @@
 package kz.algorithm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class labs {
     public static int numJewelsInStones(String J, String S) {
         int count = 0;
@@ -37,6 +40,49 @@ public class labs {
         }
         return true;
     }
+    public static List<String> fizzBuzz(int n) {
+        List<String> str = new ArrayList();
+        for(int i=1; i<=n; i++){
+            boolean dev3 = (i%3==0);
+            boolean dev5 = (i%5==0);
+
+            if(dev5 && dev3){
+                str.add("FizzBuzz");
+
+            }else if(dev3){
+                str.add("Fizz");
+            }else if(dev5){
+                str.add("Buzz");
+            }
+            else{
+                str.add(Integer.toString(i));
+            }
+        }
+        return str;
+    }
+    public static int lengthOfLastWord(String s) {
+        String []str =  s.split("");
+        int count = 0;
+        boolean newline = false;
+        if(str.length<1){
+            return 0;
+        }
+        for(String s1 :str){
+            if(s1.equals(" ")){
+                newline =true;
+            }else{
+                if(newline){ count =0;newline =false;}
+                count++;
+            }
+        }
+
+        return count;
+
+    }
+
+    public static int lengthOfLastWord1(String s) {
+        return s.trim().length()-s.trim().lastIndexOf(" ")-1;
+    }
 
     public static void main(String[] args) {
         labs labs = new labs();
@@ -44,5 +90,7 @@ public class labs {
         int bills1[] =new int[]{5,5,10,10,20};
         System.out.println(labs.lemonadeChange(bills));
         System.out.println(numJewelsInStones("aS", "aassSc"));
+        System.out.println(fizzBuzz(20));
+        System.out.println(lengthOfLastWord1("Hello "));
     }
 }

@@ -1,7 +1,7 @@
 package kz.algorithm.week1;
 
 public class BinarySearch {
-    private static int loopFunction(int a[], int key) {
+    public int loopFunction(int a[], int key) {
         int lowest = 0;
         int highest = a.length - 1;
         while (lowest <= highest) {
@@ -13,7 +13,7 @@ public class BinarySearch {
         return -1;
     }
 
-    private static int recursiveFunction(int a[], int key, int l, int r) {
+    public int recursiveFunction(int a[], int key, int l, int r) {
         if (r >= l) {
             int mid = l + (r - l) / 2;
             if (a[mid] == key) {
@@ -27,7 +27,7 @@ public class BinarySearch {
         return -1;
     }
 
-    private static int descResursiveFunction(int a[], int key, int l, int r) {
+    public int descResursiveFunction(int a[], int key, int l, int r) {
         if (r >= l) {
             int mid = l + (r - l) / 2;
             if (a[mid] == key) {
@@ -44,8 +44,9 @@ public class BinarySearch {
     public static void main(String[] args) {
         int a[] = {4, 13, 26, 33, 45, 47, 80, 84, 95, 99, 101};
         int descA[] = {101, 99, 95, 84, 80, 47, 45, 33, 26, 13, 4};
-        System.out.println("loop function " + loopFunction(a, 84));
-        System.out.println("recursive function " + recursiveFunction(a, 84, 0, 11));
-        System.out.println("desc recursive function " + descResursiveFunction(descA, 84, 0, 11));
+        BinarySearch binarySearch= new BinarySearch();
+        System.out.println("loop function " + binarySearch.loopFunction(a, 84));
+        System.out.println("recursive function " + binarySearch.recursiveFunction(a, 84, 0, 11));
+        System.out.println("desc recursive function " + binarySearch.descResursiveFunction(descA, 84, 0, 11));
     }
 }

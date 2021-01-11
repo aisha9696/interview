@@ -1,6 +1,5 @@
 package kz.algorithm.task2;
 
-import edu.princeton.cs.algs4.Quick;
 import kz.algorithm.sort.QuickSort;
 
 import java.lang.reflect.Array;
