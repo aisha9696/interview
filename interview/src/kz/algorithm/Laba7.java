@@ -8,8 +8,10 @@ public class Laba7 {
         if (N == 0) return count;
         int f = N % 10;
         if (f % 2 == 0) count++;
+
         return even(N / 10, count++);
     }
+
 
 
 
