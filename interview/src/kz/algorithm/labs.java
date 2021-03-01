@@ -1,6 +1,8 @@
 package kz.algorithm;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class labs {
@@ -111,6 +113,7 @@ public class labs {
         }
     }
 
+
     public static int lengthOfLastWord1(String s) {
         return s.trim().length() - s.trim().lastIndexOf(" ") - 1;
     }
@@ -162,18 +165,144 @@ public class labs {
             if ((a - b) == 0) {
                 l++;
                 r--;
-            } else if(Character.forDigit(a-32,16) == Character.forDigit(b,16) ){
+            } else if (Character.forDigit(a - 32, 16) == Character.forDigit(b, 16)) {
                 l++;
                 r--;
-            }else if(Character.forDigit(a+32,16) == Character.forDigit(b,16) ){
+            } else if (Character.forDigit(a + 32, 16) == Character.forDigit(b, 16)) {
                 l++;
                 r--;
-            }else {
+            } else {
                 return false;
             }
         }
 
         return true;
+    }
+
+    public static int findLengthOfLCIS(int[] nums) {
+        int temp = 0;
+        int sum = 1;
+        if (nums.length == 0) return 0;
+
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] < nums[i + 1]) {
+                sum += 1;
+            } else {
+                temp = Math.max(temp, sum);
+                sum = 1;
+            }
+        }
+        temp = Math.max(temp, sum);
+        return temp;
+    }
+
+    public static int countSubstrings(String s) {
+        int len = s.length();
+        int ssize = 1;
+        List<String> strArray = new ArrayList<>();
+        while (ssize <= s.length()) {
+            int a = 0;
+            for (int j = 0; j < ssize; j++) {
+                StringBuilder builder = new StringBuilder();
+                for (int i = a; i < a + len; i++) {
+                    builder.append(s.charAt(i));
+                }
+                a++;
+                strArray.add(builder.toString());
+            }
+            ssize++;
+            len--;
+        }
+        int count = 0;
+        for (String str : strArray) {
+            int check = 0;
+            if (str.length() > 1) {
+                int l = 0;
+                int r = str.length() - 1;
+                while (l < r) {
+                    if (str.charAt(l) == str.charAt(r)) {
+                        check++;
+                    }
+                    l++;
+                    r--;
+                }
+            }
+            if (check == (str.length() / 2)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public static int countSubstrings1(String s) {
+        int n = s.length();
+        if (n < 2)
+            return n;
+        int count = n;
+        boolean[][] dp = new boolean[n][n];
+        // size 1 substrings are palindromes
+        for (int i = 0; i < n; i++)
+            dp[i][i] = true;
+        // for size 2 substrings, check first and last char
+        for (int i = 0; i + 1 < n; i++)
+            if (s.charAt(i) == s.charAt(i + 1)) {
+                dp[i][i + 1] = true;
+                count++;
+            }
+        // for size = 3+
+        for (int len = 2; len < n; len++) // controls the size of the substring
+            for (int i = 0; i + len < n; i++) { // controls the start index
+                int j = i + len; // end index
+                if ((s.charAt(i) == s.charAt(j)) && dp[i + 1][j - 1]) {
+                    dp[i][j] = true;
+                    count++;
+                }
+            }
+        return count;
+    }
+
+    public static List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> finalArr = new ArrayList<List<Integer>>();
+        for (int i = 0; i < numRows; i++) {
+            List<Integer> subNums = new ArrayList<Integer>();
+            for (int j = 0; j <= i; j++) {
+                if (i == 0 && j == 0) {
+                    subNums.add(1);
+                } else if (j == 0) {
+                    subNums.add(1);
+                } else if (j == i) {
+                    subNums.add(1);
+                } else {
+                    subNums.add(finalArr.get(i - 1).get(j - 1) + finalArr.get(i - 1).get(j));
+
+                }
+            }
+            finalArr.add(subNums);
+        }
+        return finalArr;
+    }
+
+    public static int strStr(String haystack, String needle) {
+        if (needle.isEmpty()) return 0;
+        if (needle.length() > haystack.length()) return -1;
+        return 0;
+
+    }
+
+    public static int teamWork(int n, int k, int[] arr) {
+        if (n % k != 0) return -1;
+        int max = arr[0];
+        int min = arr[0];
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (arr[i] != arr[j]) {
+                    max = Math.max(max,  arr[i] + arr[j]);
+                    min = Math.min(min,  arr[i] + arr[j]);
+                }
+            }
+        }
+        return max - min;
     }
 
     public static void main(String[] args) {
@@ -187,8 +316,17 @@ public class labs {
         //System.out.println(fizzBuzz(20));
         //System.out.println(lengthOfLastWord1("Hello "));
         //System.out.println(thirdMax(num));
+        int[] nums = new int[]{2, 2, 2, 2, 2, 2};
+        //  System.out.println(findLengthOfLCIS(nums));
+        //System.out.println(countSubstrings1("aaa"));
+        String str = "f8&Pd%2na";
 
-        System.out.println(isPalindrome("0P"));
+
+        System.out.println(teamWork(6, 2, new int[]{3, 1, 7, 2, 1, 2}));
+        // System.out.println(generate(5));
+        //System.out.println(isPalindrome("0P"));
+
+
 
     }
 }
