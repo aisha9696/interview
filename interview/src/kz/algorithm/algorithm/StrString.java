@@ -18,19 +18,17 @@ public class StrString {
     /**
      * Brute Force algorithm
      */
-    public static int search(String heystack, String needle) {
-        int N = needle.length();
-        int M = heystack.length();
-        if (N > M) return -1;
-        if (M < 0 || N < 0) return 0;
-        for (int i = 0; i <= N; i++) {
+    public static int searchBF(String haystack, String needle) {
+        if(needle.isEmpty()) return 0;
+        if(needle.length()>haystack.length()) return -1;
+
+
+        for(int i = 0; i < haystack.length(); i++) {
             int j = 0;
-            for (j = 0; j < M; j++) {
-                if (heystack.charAt(i + j) != needle.charAt(j)) {
-                    break;
-                }
+            for(;j < needle.length(); j++) {
+                if(haystack.charAt(i+j) != needle.charAt(j)) break;
             }
-            if (j == M) return i;
+            if(j == needle.length()) return i;
         }
         return -1;
     }
@@ -38,14 +36,14 @@ public class StrString {
     /**
      * Knuth Morris Pratt algorithm
      * 1 шаг: создать префиксную функцию (это pi(i) обозначает длину максимального префикса строки собрадающая суффиксом)
-     * пусть needle - a array
+     * пусть needle - a array, j=0, i=1;
      * - если ai != aj тогда
      * - если j =0 то pi[i] =0; i++;
      * - иначе(т.е. j!=0 ) то j = pi[j-1]
      * <p>
      * - иначе (т.е. ai == aj) pi[i] =j+1; i++; j++;
      * 2 шаг: Поиск образа в строке
-     * пусть heystack - t array, needle - a array
+     * пусть heystack - t array, needle - a array, k=0, l=0
      * - если tk == al тогда
      * k++; l++;
      * - если l==n, то образ найден
@@ -75,15 +73,47 @@ public class StrString {
                 }
             }
         }
-
-
         return pi;
+    }
+
+    public static int searchKMP(String heystack, String needle) {
+        int N = needle.length();
+        int M = heystack.length();
+        if (N > M) return -1;
+        if (M < 0 || N < 0) return 0;
+        char[] t = heystack.toCharArray();
+        char[] a = needle.toCharArray();
+        int[] prefixF = createPrefix(a, N);
+        int l = 0;
+        int k = 0;
+        while (k < M) {
+            if (t[k] == a[l]) {
+                k++;
+                l++;
+                if (l == N) {
+                    return k - l;
+                }
+            } else {
+                if (l == 0) {
+                    k++;
+                    if (k == M) {
+                        return -1;
+                    }
+                } else {
+                    l = prefixF[l - 1];
+                }
+            }
+        }
+
+        return 0;
 
     }
 
     public static void main(String[] args) {
+        String heystack = "abcbeabcabcabd";
         String needle = "abcabd";
-        char []a = needle.toCharArray();
-        System.out.println();
+        char[] a = needle.toCharArray();
+        System.out.println(searchKMP(heystack, needle));
+        System.out.println(searchBF(heystack, needle));
     }
 }
