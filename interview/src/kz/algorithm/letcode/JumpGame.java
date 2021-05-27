@@ -3,7 +3,7 @@ package kz.algorithm.letcode;
 import kz.algorithm.week1.QuickUnionWeightedComp;
 
 public class JumpGame {
-    public static boolean canJump(int[] nums) {
+    public static boolean canJump1(int[] nums) {
         QuickUnionWeightedComp quwc = new QuickUnionWeightedComp(nums.length* nums.length);
         if(nums.length == 1 ) return true;
         for(int i = 0; i<nums.length; i++){
@@ -24,41 +24,19 @@ public class JumpGame {
         return false;
     }
 
-    public static boolean canJump1(int[] nums) {
-        int [] pos = new int[nums.length* nums.length];
-        if(nums.length == 1 ) return true;
-        for(int i = 0; i<nums.length; i++){
-            if(nums[i]>0 || nums[i] != 0 ){
-                for(int j =1; j<=nums[i]; j++){
-                    if(i == 0){
-                        int qid = pos[i];
-                        int pid = pos[j];
-                        for(int k = 0; k< pos.length;k++){
-                            if(pos[k] == qid){
-                                pos[k] = pid;
-                            }
-                        }
-                    }else{
-                        int qid = pos[i];
-                        int pid = pos[i+j];
-                        for(int k = 0; k< pos.length; k++){
-                            if(pos[k] == qid){
-                                pos[k] = pid;
-                            }
-                        }
-                    }
-                }
+    public static boolean canJump(int[] nums) {
+        int lastPos =nums.length -1;
+        for(int i = nums.length-1; i >= 0; i-- ){
+            if(i+nums[i] >= lastPos){
+                lastPos = i;
             }
-
         }
+        return lastPos == 0;
 
-        if(pos[0] == pos[nums.length-1])return true;
-
-
-        return false;
     }
 
+
     public static void main(String[] args) {
-        System.out.println(canJump1(new int[]{3,2,1,0,4}));
+        System.out.println(canJump(new int[]{2,1,5,0,4,6}));
     }
 }
