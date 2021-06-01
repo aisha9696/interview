@@ -1,38 +1,77 @@
 package kz.algorithm;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static int firstUniqChar(String s) {
-        if(s.length() < 3) return s.length();
         HashMap<Character, Integer> chars = new HashMap<>();
+        HashMap<Character, Integer> index = new HashMap<>();
 
-        for(Character ch: s.toCharArray()){
-            if(!chars.containsKey(ch)){
-                chars.put(ch, 1);
+        for(int i = 0; i<s.length(); i++){
+            if(!chars.containsKey(s.charAt(i))){
+                chars.put(s.charAt(i), 1);
+                index.put(s.charAt(i), i);
             }else{
-                chars.put(ch,chars.get(ch) +1);
+                chars.put(s.charAt(i),chars.get(s.charAt(i)) +1);
+            }
+        }
+        for(Character ch: chars.keySet()){
+            if(chars.get(ch) == 1){
+                return index.get(ch);
             }
         }
 
-        int sum = 0;
-        boolean first1 = true;
-        for(int val : chars.values()){
-            if(val == 1 && first1){
-                first1 = false;
-                sum+=val;
-            }else{
-                if(val%2 == 0){
-                    sum+=val;
+
+        return -1;
+    }
+
+
+    public static List<String> commonChars(String[] words) {
+        Map<Character, Map<Integer, Integer>> words_index_count = new HashMap<>();
+        List<String> result = new ArrayList<>();
+        for(int i = 0; i < words.length; i++){
+            for(Character ch : words[i].toCharArray()){
+                if(!words_index_count.containsKey(ch)){
+                    Map<Integer, Integer> index_count = new HashMap<>();
+                    index_count.put(i ,1);
+                    words_index_count.put(ch,index_count);
                 }else{
-                    sum+=val-1;
+                    if(!words_index_count.get(ch).containsKey(i)){
+                        words_index_count.get(ch).put(i,1);
+                    }else{
+                        words_index_count.get(ch).put(i,words_index_count.get(ch).get(i)+1);
+                    }
                 }
             }
         }
 
-        return sum;
+
+        for(Character ch : words_index_count.keySet()){
+            if(words_index_count.get(ch).size() != words.length){
+                continue;
+            }
+            int min = Integer.MAX_VALUE;
+            for(Integer k: words_index_count.get(ch).values()){
+                if(min > k){
+                    min = k;
+                }
+            }
+
+            for(int i = 0; i< min;i++){
+                result.add(ch.toString());
+            }
+
+        }
+
+
+        return result;
     }
     public static void main(String[] args) {
-        System.out.println(firstUniqChar("abccccdd"));
+        //System.out.println(firstUniqChar("leetcode"));
+        String [] array = {"cool","lock", "cook"};
+        System.out.println(commonChars(array));
     }
 }
