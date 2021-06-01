@@ -1,6 +1,6 @@
 package kz.algorithm.letcode;
 
-import kz.algorithm.week1.QuickUnionWeightedComp;
+import kz.algorithm.data_structure.quick_find.QuickUnionWeightedComp;
 
 public class JumpGame {
     public static boolean canJump1(int[] nums) {

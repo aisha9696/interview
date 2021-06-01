@@ -1,4 +1,4 @@
-package kz.algorithm.week1;
+package kz.algorithm.data_structure.quick_find;
 
 public class QuickUnionWeighted extends QuickUnion {
     int sz[];

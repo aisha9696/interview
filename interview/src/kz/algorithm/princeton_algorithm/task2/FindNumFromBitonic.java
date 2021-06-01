@@ -1,6 +1,6 @@
-package kz.algorithm.task2;
+package kz.algorithm.princeton_algorithm.task2;
 
-import kz.algorithm.week1.BinarySearch;
+import kz.algorithm.data_structure.binary_search.BinarySearch;
 
 public class FindNumFromBitonic {
     BinarySearch binarySearch = new BinarySearch();

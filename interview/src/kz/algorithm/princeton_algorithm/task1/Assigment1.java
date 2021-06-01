@@ -1,4 +1,4 @@
-    package kz.algorithm.task1;
+    package kz.algorithm.princeton_algorithm.task1;
 
     public class Assigment1 {
 

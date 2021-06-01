@@ -1,4 +1,4 @@
-package kz.algorithm.percolation;
+package kz.algorithm.princeton_algorithm.percolation;
 
 import javax.swing.*;
 import java.awt.*;

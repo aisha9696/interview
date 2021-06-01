@@ -1,6 +1,5 @@
-package kz.algorithm.sort;
+package kz.algorithm.data_structure.sort;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class QuickSort {

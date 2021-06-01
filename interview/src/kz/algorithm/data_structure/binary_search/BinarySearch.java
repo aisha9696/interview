@@ -1,4 +1,4 @@
-package kz.algorithm.week1;
+package kz.algorithm.data_structure.binary_search;
 
 public class BinarySearch {
     public int loopFunction(int a[], int key) {

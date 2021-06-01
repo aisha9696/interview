@@ -1,4 +1,4 @@
-package kz.algorithm.percolation;
+package kz.algorithm.princeton_algorithm.percolation;
 
 import java.util.Random;
 import edu.princeton.cs.algs4.StdOut;
