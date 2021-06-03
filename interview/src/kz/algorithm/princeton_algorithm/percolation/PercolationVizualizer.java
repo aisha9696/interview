@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
-
+/*
 public class PercolationVizualizer {
     Map<Integer, Map<Integer, Integer>> jbuttons;
     int num;
@@ -124,3 +124,4 @@ public class PercolationVizualizer {
         vizualizer.visualize();
     }
 }
+*/

@@ -28,6 +28,32 @@ public class Main {
         return -1;
     }
 
+    public static boolean wordPattern(String pattern, String s) {
+        char [] patterns = pattern.toCharArray();
+        String [] sArr = s.split(" ");
+        if(patterns.length != sArr.length){
+            return false;
+        }
+
+        HashMap<Character, String> finalize = new HashMap<Character, String>();
+        for(int i = 0; i<patterns.length && i<sArr.length; i++ ){
+            if(!finalize.containsKey(patterns[i])){
+                if(finalize.containsValue(sArr[i])){
+                    return false;
+                }
+                finalize.put(patterns[i], sArr[i]);
+            }else{
+                if(!finalize.get(patterns[i]).equals(sArr[i])){
+                    return false;
+                }
+            }
+
+
+        }
+        return true;
+
+    }
+
 
     public static List<String> commonChars(String[] words) {
         Map<Character, Map<Integer, Integer>> words_index_count = new HashMap<>();
@@ -73,5 +99,6 @@ public class Main {
         //System.out.println(firstUniqChar("leetcode"));
         String [] array = {"cool","lock", "cook"};
         System.out.println(commonChars(array));
+        System.out.println(wordPattern("aaaa","dog cat cat dog"));
     }
 }

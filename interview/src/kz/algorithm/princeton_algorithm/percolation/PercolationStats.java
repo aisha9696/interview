@@ -1,5 +1,5 @@
 package kz.algorithm.princeton_algorithm.percolation;
-
+/*
 import java.util.Random;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdStats;
@@ -83,4 +83,4 @@ public class PercolationStats {
         StdOut.println("95% confidence interval = "+ stats.confidenceLo() +", "+ stats.confidenceHi() );
     }
 
-}
+}*/

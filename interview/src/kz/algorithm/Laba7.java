@@ -18,6 +18,7 @@ public class Laba7 {
 
     public static void main(String[] args) {
         int N = 987456123;
+        String s = "";
         System.out.println(even(N, 0));
     }
 }

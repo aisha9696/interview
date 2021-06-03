@@ -113,7 +113,6 @@ public class labs {
         }
     }
 
-
     public static int lengthOfLastWord1(String s) {
         return s.trim().length() - s.trim().lastIndexOf(" ") - 1;
     }
@@ -165,10 +164,10 @@ public class labs {
             if ((a - b) == 0) {
                 l++;
                 r--;
-            } else if (Character.forDigit(a - 32, 16) == Character.forDigit(b, 16)) {
+            } else if ((64 < a && a < 91) && (96 < b && b < 123) && (a - b) == -32) {
                 l++;
                 r--;
-            } else if (Character.forDigit(a + 32, 16) == Character.forDigit(b, 16)) {
+            } else if ((64 < b && b < 91) && (96 < a && a < 123) && (a - b) == 32) {
                 l++;
                 r--;
             } else {
@@ -179,157 +178,162 @@ public class labs {
         return true;
     }
 
-    public static int findLengthOfLCIS(int[] nums) {
-        int temp = 0;
-        int sum = 1;
-        if (nums.length == 0) return 0;
-
-        for (int i = 0; i < nums.length - 1; i++) {
-            if (nums[i] < nums[i + 1]) {
-                sum += 1;
-            } else {
-                temp = Math.max(temp, sum);
-                sum = 1;
-            }
+    public static int subtractProductAndSum(int n) {
+        int multipler = 1;
+        int sum = 0;
+        int newN = n;
+        while (n > 0) {
+            int lastDigit = n % 10;
+            multipler *= lastDigit;
+            n /= 10;
         }
-        temp = Math.max(temp, sum);
-        return temp;
+
+        while (newN > 0) {
+            int lastDigit = newN % 10;
+            sum += lastDigit;
+            newN /= 10;
+        }
+        return multipler - sum;
     }
 
     public static int countSubstrings(String s) {
         int len = s.length();
         int ssize = 1;
-        List<String> strArray = new ArrayList<>();
+        int count = 0;
         while (ssize <= s.length()) {
             int a = 0;
             for (int j = 0; j < ssize; j++) {
-                StringBuilder builder = new StringBuilder();
-                for (int i = a; i < a + len; i++) {
-                    builder.append(s.charAt(i));
+
+                String substr = s.substring(a, a + len);
+                System.out.println(substr);
+                int check = 0;
+                if (substr.length() > 1) {
+                    int l = 0;
+                    int r = substr.length() - 1;
+                    while (l < r) {
+                        if (substr.charAt(l) == substr.charAt(r)) {
+                            check++;
+                        }
+                        l++;
+                        r--;
+                    }
+                }
+                if (check == (substr.length() / 2)) {
+                    count++;
                 }
                 a++;
-                strArray.add(builder.toString());
+
             }
             ssize++;
             len--;
         }
-        int count = 0;
-        for (String str : strArray) {
-            int check = 0;
-            if (str.length() > 1) {
-                int l = 0;
-                int r = str.length() - 1;
-                while (l < r) {
-                    if (str.charAt(l) == str.charAt(r)) {
-                        check++;
-                    }
-                    l++;
-                    r--;
-                }
-            }
-            if (check == (str.length() / 2)) {
-                count++;
-            }
-        }
+
 
         return count;
-    }
-
-    public static int countSubstrings1(String s) {
-        int n = s.length();
-        if (n < 2)
-            return n;
-        int count = n;
-        boolean[][] dp = new boolean[n][n];
-        // size 1 substrings are palindromes
-        for (int i = 0; i < n; i++)
-            dp[i][i] = true;
-        // for size 2 substrings, check first and last char
-        for (int i = 0; i + 1 < n; i++)
-            if (s.charAt(i) == s.charAt(i + 1)) {
-                dp[i][i + 1] = true;
-                count++;
-            }
-        // for size = 3+
-        for (int len = 2; len < n; len++) // controls the size of the substring
-            for (int i = 0; i + len < n; i++) { // controls the start index
-                int j = i + len; // end index
-                if ((s.charAt(i) == s.charAt(j)) && dp[i + 1][j - 1]) {
-                    dp[i][j] = true;
-                    count++;
-                }
-            }
-        return count;
-    }
-
-    public static List<List<Integer>> generate(int numRows) {
-        List<List<Integer>> finalArr = new ArrayList<List<Integer>>();
-        for (int i = 0; i < numRows; i++) {
-            List<Integer> subNums = new ArrayList<Integer>();
-            for (int j = 0; j <= i; j++) {
-                if (i == 0 && j == 0) {
-                    subNums.add(1);
-                } else if (j == 0) {
-                    subNums.add(1);
-                } else if (j == i) {
-                    subNums.add(1);
-                } else {
-                    subNums.add(finalArr.get(i - 1).get(j - 1) + finalArr.get(i - 1).get(j));
-
-                }
-            }
-            finalArr.add(subNums);
-        }
-        return finalArr;
     }
 
     public static int strStr(String haystack, String needle) {
         if (needle.isEmpty()) return 0;
         if (needle.length() > haystack.length()) return -1;
-        return 0;
-
-    }
-
-    public static int teamWork(int n, int k, int[] arr) {
-        if (n % k != 0) return -1;
-        int max = arr[0];
-        int min = arr[0];
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                if (arr[i] != arr[j]) {
-                    max = Math.max(max,  arr[i] + arr[j]);
-                    min = Math.min(min,  arr[i] + arr[j]);
+        int output = -1;
+        boolean firsttime = true;
+        int j = 0;
+        for (int i = 0; i < haystack.length(); i++) {
+            while (j < needle.length() - 1) {
+                if (haystack.charAt(i) == needle.charAt(j)) {
+                    if (firsttime) {
+                        output = i;
+                        firsttime = false;
+                    }
+                    j++;
+                    i++;
+                } else {
+                    j = 0;
+                    firsttime = true;
+                    if (output == -1) {
+                        i = 0;
+                    } else {
+                        i = output - 1;
+                    }
                 }
             }
         }
-        return max - min;
+        return output;
     }
 
     public static int maxSubArray(int[] nums) {
-        if(nums.length == 0) return 0;
+        if (nums.length == 0) return 0;
+        if (nums.length == 1) return nums[0];
         int prfs[] = new int[nums.length];
-        prfs [0]=nums[0];
-        int max =nums[0];
-        for(int i = 1; i<=nums.length-1; i++){
-            prfs [i] = prfs [i-1] + nums[i];
-            if(nums[i]>max)max = nums[i];
-        }
-
-        for(int i = 1; i<=nums.length-1; i++){
-            if(prfs [i]>max){ max = prfs [i];}
-            for(int j =1; j <i; j++){
-                if(prfs [i]-prfs [j-1] >max){
-                    max = prfs [i]-prfs [j-1];
-                }
+        prfs[0] = nums[0];
+        int min = Math.min(nums[0], 0);
+        int max = nums[0];
+        for (int i = 1; i <= nums.length - 1; i++) {
+            prfs[i] = prfs[i - 1] + nums[i];
+            if (max < prfs[i] - min) {
+                max = prfs[i] - min;
+            }
+            if (min > prfs[i]) {
+                min = prfs[i];
             }
         }
         return max;
     }
 
+    public static int[] shuffle(int[] nums, int n) {
+        int out[] = new int[nums.length];
+        if (nums.length / n == 2) {
+            int k = 0;
+            for (int j = 0; j < n; j++) {
+                for (int i = j; i < 2 * n; i = i + 2) {
+                    out[k++] = nums[i];
+                }
+            }
+
+        }
+        return out;
+    }
 
 
+    public static int[] twoSum(int[] numbers, int target) {
+        return twoRecSum(0,numbers.length-1, numbers, target);
+
+    }
+
+    public static int[] twoRecSum(int left, int right, int[] numbers, int target) {
+        if (numbers[left] + numbers[right] != target)  {
+            if (numbers[left] + numbers[right] < target) {
+                left++;
+                twoRecSum(left, right, numbers, target);
+            } else {
+                right--;
+                twoRecSum(left, right, numbers, target);
+            }
+        }
+        return new int[]{left+1, right+1};
+    }
+
+    public static int[] kWeakestRows(int[][] mat, int k) {
+        int [] a = new int[k];
+        int [] jmat = new int[mat.length];
+        int jcount =0;
+        for(int i = 0; i < mat.length; i++){
+            for(int j = 0; j < mat[i].length; j++){
+                if(mat[i][j] == 1){
+                    jcount++;
+                }
+            }
+            jmat[i] = jcount;
+            jcount = 0;
+        }
+
+        for(int i =0; i <k; i++){
+
+        }
 
 
+        return a;
+    }
 
     public static void main(String[] args) {
         labs labs = new labs();
@@ -337,22 +341,24 @@ public class labs {
         int bills1[] = new int[]{5, 5, 10, 10, 20};
         int m = 'a';
         int num[] = new int[]{5, 2, 2};
+        int a [][]=  {{1,1,0,0,0},
+                {1,1,1,1,0},
+                {1,0,0,0,0},
+                {1,1,0,0,0},
+                {1,1,1,1,1}};
         //System.out.println(labs.lemonadeChange(bills));
         //System.out.println(numJewelsInStones("aS", "aassSc"));
         //System.out.println(fizzBuzz(20));
         //System.out.println(lengthOfLastWord1("Hello "));
         //System.out.println(thirdMax(num));
-        int[] nums = new int[]{2, 2, 2, 2, 2, 2};
-        //  System.out.println(findLengthOfLCIS(nums));
-        //System.out.println(countSubstrings1("aaa"));
-        String str = "f8&Pd%2na";
-
-        System.out.println(maxSubArray(new int[]{0,-3,1,1}));
-        //System.out.println(teamWork(6, 2, new int[]{3, 1, 7, 2, 1, 2}));
-        // System.out.println(generate(5));
-        //System.out.println(isPalindrome("0P"));
-
-
-
+        // System.out.println(maxSubArray(new int[]{-2,1,-3,4,-1,2,1,-5,4}));
+        //System.out.println(isPalindrome("A man, a plan, a canal: Panama"));
+        // System.out.println(subtractProductAndSum(234));
+        //System.out.println(countSubstrings("banana"));
+        // System.out.println(strStr("mississippi","issippi"));
+        //System.out.println(twoSum(new int[]{2, 7, 11, 15}, 9));
+        System.out.println(kWeakestRows(a,3));
     }
+
+
 }

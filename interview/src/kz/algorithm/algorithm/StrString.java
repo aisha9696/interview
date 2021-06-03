@@ -1,6 +1,5 @@
 package kz.algorithm.algorithm;
 
-import edu.princeton.cs.algs4.ST;
 
 import java.util.Arrays;
 import java.util.List;
