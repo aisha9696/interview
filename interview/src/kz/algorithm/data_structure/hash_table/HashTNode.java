@@ -2,37 +2,31 @@ package kz.algorithm.data_structure.hash_table;
 
 
 public class HashTNode {
-    private Object key;
-    private Object value;
-    private HashTNode next;
+    private Integer key;
+    private Integer value;
 
-    public Object getKey() {
+    public HashTNode(Integer key, Integer value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public Integer getKey() {
         return key;
     }
 
-    public void setKey(Object key) {
+    public void setKey(Integer key) {
         this.key = key;
     }
 
-    public Object getValue() {
+    public Integer getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
-
-    public HashTNode getNext() {
-        return next;
-    }
-
-    public void setNext(HashTNode next) {
-        this.next = next;
-    }
-
-    public HashTNode(Object key, Object value, HashTNode next) {
+/*public HashTNode(Object key, Object value) {
         this.key = key;
         this.value = value;
-        this.next = next;
-    }
+    }*/
 }

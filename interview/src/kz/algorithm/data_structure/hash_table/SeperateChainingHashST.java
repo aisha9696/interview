@@ -1,34 +1,66 @@
 package kz.algorithm.data_structure.hash_table;
 
-public class SeperateChainingHashST<Key,Value> {
-    private int M  = 97; //число цепочек
-    private HashTNode [] st = new HashTNode[M]; // массив цепочек
+import java.util.LinkedList;
 
-    private int getHash(Key key){
-        return (key.hashCode()&Integer.MAX_VALUE)%M;
+public class SeperateChainingHashST {
+    private static final int M  = 97; //число цепочек
+    LinkedList<HashTNode>[] maps;
+
+    private int getHash(Integer key){
+        return key % M;
     }
 
-    public Value get(Key key){
-        int i = getHash(key);
-        for (HashTNode x = st[i]; x != null; x = x.getNext()){
-            if(key.equals(x.getKey())){
-                return (Value) x.getValue();
-            }
-        }
-        return null;
+    public SeperateChainingHashST() {
+        maps = new LinkedList[M];
     }
-    public void put(Key key, Value value){
-        int i = getHash(key);
-        for (HashTNode x = st[i]; x != null; x = x.getNext()){
-            if(key.equals(x.getKey())){
-                x.setValue(value);
-                return ;
+
+    public Integer get(Integer key){
+        int index = getHash(key);
+        LinkedList<HashTNode> list = maps[index];
+        if(maps[index] == null) return -1;
+        for(HashTNode tNode: list){
+            if(tNode.getKey() == key){
+                return tNode.getValue();
             }
-            st[i] = new HashTNode(key, value, st[i]);
         }
+        return -1;
+    }
+    public void put(Integer key, Integer value){
+        int index = getHash(key);
+        if(maps[index] == null){
+            maps[index] = new LinkedList<>();
+            maps[index].add(new HashTNode(key,value));
+        }else{
+            LinkedList<HashTNode> list = maps[index];
+            for(HashTNode tNode: list){
+                if(tNode.getKey() == key){
+                    tNode.setValue(value);
+                }
+            }
+            maps[index].add(new HashTNode(key,value));
+        }
+
+
+    }
+    public void remove(Integer key){
+        int index = getHash(key);
+        if(maps[index] == null) return;
+        LinkedList<HashTNode> list = maps[index];
+        for(HashTNode tNode: list){
+            if(tNode.getKey() == key){
+                list.remove(tNode);
+            }
+        }
+
     }
 
     public static void main(String[] args) {
+        SeperateChainingHashST hashST = new SeperateChainingHashST();
+        hashST.put(1,1);
+        hashST.put(5,2);
+        hashST.put(3,1);
+        hashST.put(1,3);
+        System.out.println(hashST.get(1));
 
     }
 }
