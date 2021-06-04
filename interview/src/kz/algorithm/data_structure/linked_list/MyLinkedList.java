@@ -12,6 +12,7 @@ public class MyLinkedList {
             System.out.print(node.getValue()+",");
             node = node.getNext();
         }
+
     }
     /**
      * метод добавление подразумевает:
@@ -217,7 +218,7 @@ public class MyLinkedList {
         MyNode loop = head;
         while (!stack.empty() && loop!=null){
             MyNode curr = stack.pop();
-            if(curr != loop){
+            if(curr.getValue() != loop.getValue()){
                 return false;
             }
             loop = loop.getNext();
@@ -230,6 +231,46 @@ public class MyLinkedList {
 
 
         return false;
+    }
+
+    /**
+     * Reverse
+     * */
+    public MyNode reverseList(MyNode head) {
+        MyNode current = head;
+        MyNode next = null;
+        MyNode prev = null;
+        while (current!=null){
+          next = current.getNext();
+          current.setNext(prev);
+          prev = current;
+          current= next;
+        }
+        head = prev;
+
+
+        return head;
+    }
+
+    public MyNode reverseListStack(MyNode head) {
+      Stack<MyNode> stack = new Stack<>();
+      MyNode node = head;
+      while ( node !=null){
+          stack.push(new MyNode(node.getValue()));
+          node = node.getNext();
+      }
+      head = node;
+
+      while (!stack.isEmpty() && node !=null){
+          node.setNext(stack.pop());
+          node = node.getNext();
+      }
+
+      node.setNext(null);
+
+
+
+      return head;
     }
 
 
@@ -278,14 +319,17 @@ public class MyLinkedList {
         MyLinkedList polindrome = new MyLinkedList();
         polindrome.head = new MyNode("R");
         polindrome.head.setNext(new MyNode("A"));
-       // polindrome.head.getNext().setNext(new MyNode("D"));
+        polindrome.head.getNext().setNext(new MyNode("D"));
        // polindrome.head.getNext().getNext().setNext(new MyNode("A"));
        // polindrome.head.getNext().getNext().getNext().setNext(new MyNode("R"));
         /**Traverse RADAR**/
         polindrome.printList();
         System.out.println("\n Is RADAR polindrome " + polindrome.isPolindrome() );
 
-
+        System.out.println("\n Is RADAR reverse ");
+       // polindrome.reverseList(polindrome.head);
+        polindrome.printList();
+       // polindrome.reverseListStack(polindrome.head);
 
 
 
