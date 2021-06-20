@@ -228,10 +228,60 @@ public class MyLinkedList {
     }
 
     private boolean checkPolindrome(){
+        MyNode slow_ptr =head, fast_ptr = head, second_half = null;
+        MyNode prev_of_slow_ptr = head;
+        MyNode middle = null;
+        boolean res = true;
+        if(head != null && head.getNext() !=null){
+            while (fast_ptr != null && fast_ptr.getNext() !=null){
+                fast_ptr = fast_ptr.getNext();
+                prev_of_slow_ptr = slow_ptr;
+                slow_ptr = slow_ptr.getNext();
+            }
 
+            if(fast_ptr != null){
+                middle = slow_ptr;
+                slow_ptr =slow_ptr.getNext();
+            }
+        }
 
-        return false;
+        second_half = slow_ptr;
+        prev_of_slow_ptr.setNext(null);
+        reverseList(second_half);
+        res =compareTwoList(head,second_half);
+
+        reverseList(second_half);
+
+        if(middle != null){
+            prev_of_slow_ptr.setNext(middle);
+            middle.setNext(second_half);
+        }
+        else prev_of_slow_ptr.setNext(second_half);
+
+        return res;
     }
+
+
+    /**
+     * Проверяет является ли оба List одинаковыми
+     * */
+    public boolean compareTwoList(MyNode head1, MyNode head2){
+        MyNode node1 = head1;
+        MyNode node2 = head2;
+        while (node1 != null && node2 != null){
+            if(node1.getValue() != node2.getValue()){
+                return false;
+            }
+            node1 = node1.getNext();
+            node2 = node2.getNext();
+        }
+
+        if(node1 == null && node2 == null){
+            return true;
+        }
+        return true;
+    }
+
 
     /**
      * Reverse
@@ -272,6 +322,216 @@ public class MyLinkedList {
 
       return head;
     }
+
+    /**
+     * Удаляем повторяющеие строки в сортированном списке
+     *
+     * */
+
+    public void removeDuplicates(MyNode head){
+        MyNode node = head;
+
+        while(node !=  null){
+            MyNode curr = node;
+            while(curr!= null && curr.getValue() == node.getValue()){
+                curr = curr.getNext();
+            }
+            node.setNext(curr);
+            node = node.getNext();
+        }
+    }
+
+    /**
+     * Удалить повторяющиеся элементы в сортированном списке
+     * алгоритм:
+     * 1) проходим по листу и сохраняем как текушую
+     * 2) проходим еще один раз по списку начиная с текущей
+     * 3) если равны значение пропускаем node
+     * **/
+    public void removeAllDuplicated(MyNode head){
+        MyNode node = head;
+
+        while(node !=  null){
+            MyNode curr = node;
+            /** если находится прерывается цикл и берем повторяющий элемент*/
+            while(curr!= null && curr.getValue() == node.getValue()){
+                curr = curr.getNext();
+            }
+            node.setNext(curr);
+            node = node.getNext();
+        }
+    }
+    /**
+     * Удалить повторяющиеся элементы в несортированном списке
+     * алгоритм:
+     * 1) проходим по листу
+     * 2) если значение нет в сет сохраняем в сет и сохраняем пред значение
+     * 3) если есть то в предедущий сохраняем последующий элемент
+     * **/
+
+    public void removeDuplicatedSet(MyNode head){
+        HashSet<Object> set = new HashSet<>();
+        MyNode node = head;
+        MyNode prev = null;
+        while(node !=  null){
+            if(!set.contains(node.getValue())){
+                set.add(node.getValue());
+                prev=node;
+            }else {
+               prev.setNext(node.getNext());
+            }
+
+           node = node.getNext();
+        }
+
+    }
+
+    /***
+     * Обьеденить два списка
+     *
+     * */
+
+    public static class IntNode{
+        Integer val;
+        IntNode next;
+
+        public IntNode(Integer val) {
+            this.val = val;
+            this.next = null;
+        }
+    }
+
+    public void appendIntNode(IntNode head, int val){
+        if(head == null){
+            System.err.println("Node не может быть пустым");
+        }
+        IntNode new_node = new IntNode(val);
+        IntNode last = head;
+        while(last.next!=null){
+            last = last.next;
+        }
+        last =new_node;
+    }
+
+    /**
+     * Обьеденить две сортированных списков
+     * **/
+    public IntNode mergeTwoSortedList(IntNode l1, IntNode l2){
+        IntNode node = new IntNode(0);
+        IntNode temp = node;
+        while(l1 != null && l2 != null){
+            if(l1.val < l2.val){
+                temp.next = l1;
+                l1 = l1.next;
+
+            }else{
+                temp.next = l2;
+                l2 = l2.next;
+            }
+
+            temp = temp.next;
+        }
+
+        if(l1 != null){
+            temp.next = l1;
+        }
+        if(l2 != null){
+            temp.next = l2;
+        }
+        return node.next;
+    }
+
+    /**  Intersection of two unsorted list*/
+    public IntNode getIntersectionNode(IntNode headA, IntNode headB) {
+
+        IntNode node = new IntNode(0);
+        IntNode temp = node;
+        IntNode node1 = headA, node2 = headB;
+        while(node1 != null){
+            if(node2 == null){
+                node2 = headB;
+                temp = node;
+                node1 = node1.next;
+            }
+            IntNode new_node =null;
+            if(node1!=null && node2 !=null && node1.val == node2.val){
+                new_node = new IntNode(node1.val);
+                node1 = node1.next;
+                temp.next = new_node;
+                temp = temp.next;
+            }
+            node2 = node2.next;
+        }
+        return node.next;
+    }
+
+    /**  Intersection of two sorted list*/
+    public IntNode getIntersectionNode1(IntNode headA, IntNode headB) {
+        IntNode node = new IntNode(0);
+        IntNode temp = node;
+        IntNode node1 = headA, node2 = headB;
+        while(node1 != null && node2 !=null){
+            if(node1.val == node2.val){
+                IntNode new_node = new IntNode(node1.val);
+                temp.next = new_node;
+                temp = temp.next;
+                node1 = node1.next;
+                node2 = node2.next;
+            }else if(node1.val < node2.val){
+                node1 = node1.next;
+            }else{
+                node2 = node2.next;
+            }
+        }
+
+        return node.next;
+    }
+
+    /** Version 2 Intersection of two unsorted list**/
+
+    public IntNode getIntersectionNode2(IntNode headA, IntNode headB) {
+
+        IntNode node1 = headA, node2 = headB;
+        while(node1 != node2){
+           if(node1 == null){
+               node1 = headA;
+           }else{
+               node1 = node1.next;
+           }
+           if(node2 == null){
+               node2 = headB;
+           }else {
+               node2 = node2.next;
+           }
+
+
+        }
+
+        return headA;
+    }
+
+
+    /**
+     * Алгоритм обнаружение цикла
+     * 1)
+     *
+     * */
+
+    public boolean hasCycle(MyNode head) {
+        MyNode node = head;
+        HashSet<MyNode> set = new HashSet<>();
+        while(node != null){
+            if(set.contains(node.getNext())){
+                return true;
+
+            }
+            set.add(node);
+            node = node.getNext();
+        }
+        return false;
+    }
+
+
 
 
     public static void main(String[] args) {
@@ -315,21 +575,69 @@ public class MyLinkedList {
 
         linkedList.isPolindrome();
 
+        linkedList.append(9);
+        linkedList.append(15);
+
+        /**Merge two list*/
+        IntNode list = new IntNode(1);
+        list.next = new IntNode(9);
+        list.next.next = new IntNode(1);
+        list.next.next.next = new IntNode(2);
+        list.next.next.next.next = new IntNode(4);
+
+        IntNode list2 =  new IntNode(3);
+        list2.next = new IntNode(3);
+        list2.next.next = new IntNode(1);
+       // list2.next.next.next = new IntNode(8);
+       // list2.next.next.next.next = new IntNode(4);
+       // list2.next.next.next.next.next = new IntNode(5);
+
+       /* IntNode res = linkedList.mergeTwoSortedList(list, list2);
+        System.out.println("Merge two list: ");
+        while (res!=null){
+            System.out.print(res.val + "-");
+            res = res.next;
+        }*/
+
+        IntNode res1 = linkedList.getIntersectionNode(list, list2);
+        System.out.println("\nIntersection two list: ");
+        while (res1!=null){
+            System.out.print(res1.val + "-");
+            res1 = res1.next;
+        }
+
+
+
+
+
+
+        System.out.println("\nRemove duplicates ");
+        linkedList.printList();
+        linkedList.removeDuplicatedSet(linkedList.head);
+        System.out.println("\n");
+        linkedList.printList();
+        System.out.println("\n");
+
         /**IS POLINDROME*/
         MyLinkedList polindrome = new MyLinkedList();
         polindrome.head = new MyNode("R");
         polindrome.head.setNext(new MyNode("A"));
         polindrome.head.getNext().setNext(new MyNode("D"));
-       // polindrome.head.getNext().getNext().setNext(new MyNode("A"));
-       // polindrome.head.getNext().getNext().getNext().setNext(new MyNode("R"));
+        polindrome.head.getNext().getNext().setNext(new MyNode("A"));
+        polindrome.head.getNext().getNext().getNext().setNext(new MyNode("R"));
+
         /**Traverse RADAR**/
         polindrome.printList();
         System.out.println("\n Is RADAR polindrome " + polindrome.isPolindrome() );
-
+        System.out.println("\nCheck if polindrome by compariong middle list " + polindrome.checkPolindrome());
         System.out.println("\n Is RADAR reverse ");
        // polindrome.reverseList(polindrome.head);
         polindrome.printList();
        // polindrome.reverseListStack(polindrome.head);
+        System.out.println("\n\n");
+        polindrome.removeDuplicates(polindrome.head);
+        polindrome.printList();
+
 
 
 

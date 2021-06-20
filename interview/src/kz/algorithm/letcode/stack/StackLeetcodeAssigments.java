@@ -1,6 +1,5 @@
 package kz.algorithm.letcode.stack;
 
-import edu.princeton.cs.algs4.In;
 
 import java.util.ArrayList;
 import java.util.List;
