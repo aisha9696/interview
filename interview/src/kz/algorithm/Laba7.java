@@ -1,7 +1,5 @@
 package kz.algorithm;
 
-import jdk.internal.org.objectweb.asm.commons.SerialVersionUIDAdder;
-
 public class Laba7 {
 
     static int even(int N, int count) {

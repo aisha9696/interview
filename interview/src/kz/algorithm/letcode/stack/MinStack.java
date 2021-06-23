@@ -89,15 +89,9 @@ public class MinStack {
     public void pop() {
         if(head == null) { this.head =null; return;}
         Node node = this.head;
-        int secondMinVal = Integer.MAX_VALUE;
-        while (node.next != null){
-            if(secondMinVal > node.value){
-                secondMinVal = node.value;
-            }
-            node = node.next;
-        }
+        int secndMin = Integer.MIN_VALUE;
         if(node.value == minVal){
-            minVal = secondMinVal;
+
         }
         node.next = null;
     }
