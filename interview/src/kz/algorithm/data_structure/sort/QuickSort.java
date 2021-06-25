@@ -2,6 +2,9 @@ package kz.algorithm.data_structure.sort;
 
 import java.util.Arrays;
 
+/**
+ * Быстрая сортировка
+ * */
 public class QuickSort {
 
 
