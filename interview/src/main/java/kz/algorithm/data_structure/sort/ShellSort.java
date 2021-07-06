@@ -1,6 +1,6 @@
 package kz.algorithm.data_structure.sort;
 
-import edu.princeton.cs.algs4.Shell;
+//import edu.princeton.cs.algs4.Shell;
 /**
  * Сортировка Шелла 1995
  * Похож на сортировку вставкой (InsertionSort)
