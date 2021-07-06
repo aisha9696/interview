@@ -1,6 +1,8 @@
 package kz.algorithm.data_structure.sort;
 
-import edu.princeton.cs.algs4.StdRandom;
+//import edu.princeton.cs.algs4.StdRandom;
+
+import java.util.Random;
 
 public class Shuffling extends ComparableClass{
     /**
@@ -9,8 +11,9 @@ public class Shuffling extends ComparableClass{
 
     public static  void shuffle(Comparable a[]){
         for(int i = 0; i<a.length;i++){
-            int r = StdRandom.uniform(i+1);
-            exch(a,i,r);
+           // int r = StdRandom.uniform(i+1);
+            Random r = new Random();
+            exch(a,i,r.nextInt());
         }
     }
 }

@@ -1,6 +1,6 @@
 package kz.algorithm.data_structure.sort;
 
-import edu.princeton.cs.algs4.StdRandom;
+//import edu.princeton.cs.algs4.StdRandom;
 
 import java.util.Arrays;
 
@@ -66,7 +66,7 @@ public class QuickSort extends ComparableClass {
     }
 
     private void sort(Comparable a[]) {
-        StdRandom.shuffle(a);
+      //  StdRandom.shuffle(a);
         sort(a, 0, a.length - 1);
     }
 
