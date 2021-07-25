@@ -152,14 +152,42 @@ public class SlidingWindow {
    * */
   public String getShortestSubstring(String input, String characters){
         int windowStartIndex =0;
-        int l =0, r =0;
+        int smallestWindowStartIndex=0, smallestWindowEndIndex =0;
         StringBuilder result = new StringBuilder();
       Map<Character, Integer> neededCharCounts = new HashMap<>() ;
       for(Character ch : characters.toCharArray()){
           if(neededCharCounts.containsKey(ch)){
 
-              neededCharCounts.put(ch,neededCharCounts.get(ch)+=1);
+              neededCharCounts.put(ch,neededCharCounts.get(ch)+1);
+          }else{
+              neededCharCounts.put(ch,1);
           }
+      }
+      char [] inputArray = input.toCharArray();
+
+      int   missingCharCount = characters.length();
+      for (int windowEndIndex = 0; windowEndIndex < input.length(); windowEndIndex++) {
+          char ch = inputArray[windowEndIndex];
+
+          if(neededCharCounts.containsKey(ch)){
+              if(neededCharCounts.get(ch) > 0) missingCharCount --;
+              neededCharCounts.put(ch, neededCharCounts.get(ch) -1);
+          }
+          if(missingCharCount !=0){
+            char leftChar = inputArray[windowStartIndex];
+              while (windowStartIndex < windowEndIndex && (!( neededCharCounts.containsKey(leftChar)) || neededCharCounts.get(leftChar) < 0)) {
+                  if (neededCharCounts.containsKey(leftChar)) neededCharCounts.put(ch, neededCharCounts.get(ch) +1);
+                  windowStartIndex++;
+                  leftChar = inputArray[windowStartIndex];
+              }
+              if ( (windowEndIndex - windowStartIndex) < (smallestWindowEndIndex - smallestWindowStartIndex)) {
+                  smallestWindowStartIndex = windowStartIndex;
+                  smallestWindowEndIndex = windowEndIndex;
+              }
+          }
+      }
+      for(int i = smallestWindowStartIndex; i<smallestWindowEndIndex+1; i++){
+          result.append(inputArray[i]);
       }
       return result.toString();
   }
