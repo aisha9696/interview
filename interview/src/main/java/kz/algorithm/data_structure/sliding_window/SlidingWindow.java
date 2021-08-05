@@ -150,7 +150,7 @@ public class SlidingWindow {
    * TC O(n)
    * SC O(1)
    * */
-  public String getShortestSubstring(String input, String characters){
+  public static String getShortestSubstring(String input, String characters){
         int windowStartIndex =0;
         int smallestWindowStartIndex=0, smallestWindowEndIndex =0;
         StringBuilder result = new StringBuilder();
@@ -198,7 +198,7 @@ public class SlidingWindow {
         System.out.println(getMaxSubarray(2,new int []{-1,2,3,1,-3,2}));
       // findSumNegative(5,new int []{-1,2,3,1,-3,2});
         findMaxFromZeroOne(new int[]{0,1,0,1,0,0,1,1}, 2);
-
+        getShortestSubstring("gho8cbb","cbb");
     }
 
 }
