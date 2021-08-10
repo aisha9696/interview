@@ -6,29 +6,27 @@ import java.util.Map;
 public class SlidingWindow {
     /**
      * Given a array of positive integers, find the subarrays of integers that add up to a given number
-     * */
-    public static int[] findSum(int sum, int[] array){
+     */
+    public static int[] findSum(int sum, int[] array) {
 
-        if(array.length < 0 || sum <0){
+        if (array.length < 0 || sum < 0) {
             return null;
         }
         int l = 0;
         int r = 1;
         int result = array[l] + array[r];
-        while (r< array.length ){
-            if(result == sum){
+        while (r < array.length) {
+            if (result == sum) {
                 break;
-            }
-            else if(result < sum){
-               result += array[++r];
-            }
-            else if(result > sum){
-                result-=array[l++];
+            } else if (result < sum) {
+                result += array[++r];
+            } else if (result > sum) {
+                result -= array[l++];
             }
         }
-        int[] subarray = new int[r-l+1];
+        int[] subarray = new int[r - l + 1];
         int k = 0;
-        for(int i = l; i<=r; i ++){
+        for (int i = l; i <= r; i++) {
             subarray[k++] = array[i];
         }
         return subarray;
@@ -36,22 +34,22 @@ public class SlidingWindow {
     }
 
     /**
-     *  Given an array of integers, find maximum sum subarray of the required size.
-     * */
+     * Given an array of integers, find maximum sum subarray of the required size.
+     */
 
-    public static int getMaxSubarray(int size, int[] array){
-        if(array.length < 0 || size <0){
+    public static int getMaxSubarray(int size, int[] array) {
+        if (array.length < 0 || size < 0) {
             return 0;
         }
 
-        int currentSum =0, maxSum =0, startIndex = 0;
+        int currentSum = 0, maxSum = 0, startIndex = 0;
 
-        for(int i = 0; i<array.length-size; i++){
-            for(int k = startIndex; k<startIndex+size;k ++){
+        for (int i = 0; i < array.length - size; i++) {
+            for (int k = startIndex; k < startIndex + size; k++) {
                 currentSum += array[k];
             }
-            if(currentSum>maxSum){
-                maxSum=currentSum;
+            if (currentSum > maxSum) {
+                maxSum = currentSum;
             }
             currentSum = 0;
             startIndex++;
@@ -59,60 +57,67 @@ public class SlidingWindow {
         return maxSum;
     }
 
-    public static int getMaxSubarray1(int size, int[] array){
-        if(array.length < 0 || size <0){
+    public static int getMaxSubarray1(int size, int[] array) {
+        if (array.length < 0 || size < 0) {
             return 0;
         }
 
-        int currentSum =0, maxSum =0, startIndex = 0;
-
-        for(int i = 0; i<array.length-size; i++){
-            for(int k = startIndex; k<startIndex+size;k ++){
-                currentSum += array[k];
-            }
-            if(currentSum>maxSum){
-                maxSum=currentSum;
-            }
-            currentSum = 0;
-            startIndex++;
+        long sum = 0;
+        long max = Long.MIN_VALUE;
+        for (int i = 0; i < array.length; i++) {
+            sum += array[i];
+            if (i > size - 1) sum -= array[i - size];
+            if (i >= size - 1)
+                max = Math.max(max, sum);
         }
-        return maxSum;
+        return (int) max;
     }
+
+    public static double findMaxAverage(int[] nums, int k) {
+        long sum = 0;
+        long max = Long.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (i > k - 1) sum -= nums[i - k];
+            if (i >= k - 1)
+                max = Math.max(max, sum);
+        }
+        return (double) max / k;
+    }
+
 
     /**
-     *  given an array (negative, 0, positive ) integers find subaary that add up to a given numbers
-     *  EX: -1, -4, 0, 5, 3, 2, 1   desired sum: 5
-     *  Optimal solution: Kadanes algorithm TC : O(N)
-     * */
+     * given an array (negative, 0, positive ) integers find subaary that add up to a given numbers
+     * EX: -1, -4, 0, 5, 3, 2, 1   desired sum: 5
+     * Optimal solution: Kadanes algorithm TC : O(N)
+     */
 
-    public static int[] findSumNegative(int sum, int[] array){
+    public static int[] findSumNegative(int sum, int[] array) {
 
-        if(array.length < 0 || sum <0){
+        if (array.length < 0 || sum < 0) {
             return null;
         }
 
-        for(int  i =0 ; i< array.length; i++){
+        for (int i = 0; i < array.length; i++) {
 
-            array[i] +=sum;
+            array[i] += sum;
         }
         int l = 0;
         int r = 1;
         int result = array[l] + array[r];
-        while (r< array.length ){
-            if(result-sum == sum){
+        while (r < array.length) {
+            if (result - sum == sum) {
                 break;
-            }
-            else if(result < sum +sum){
+            } else if (result < sum + sum) {
                 result += array[++r];
-            }
-            else if(result > sum +sum){
-                result-=array[l++];
+            } else if (result > sum + sum) {
+                result -= array[l++];
             }
         }
-        int[] subarray = new int[r-l+1];
+        int[] subarray = new int[r - l + 1];
         int k = 0;
-        for(int i = l; i<=r; i ++){
-            subarray[k++] = array[i]-sum;
+        for (int i = l; i <= r; i++) {
+            subarray[k++] = array[i] - sum;
         }
         return subarray;
 
@@ -125,80 +130,92 @@ public class SlidingWindow {
      * Max Flips (k): 2
      * TC O(n)
      * SC O(n)
-     * */
+     */
 
-    public static int findMaxFromZeroOne(int[] array, int maxFlips){
-        if(array.length < 0 || maxFlips <0){
+    public static int findMaxFromZeroOne(int[] array, int maxFlips) {
+        if (array.length < 0 || maxFlips < 0) {
             return 0;
         }
         int l = 0;
         int r = 1;
-        int max = array[l]==0?1:0;
-        while (r< array.length ){
-            if(max > maxFlips){
-                max -= array[l++] ==0?1:0;
-            }else if(array[r++] == 0){
+        int max = array[l] == 0 ? 1 : 0;
+        while (r < array.length) {
+            if (max > maxFlips) {
+                max -= array[l++] == 0 ? 1 : 0;
+            } else if (array[r++] == 0) {
                 max++;
             }
         }
         return max;
     }
-  /**
-   * Given a string and n characters, find the shortest substring that contains all desired characters
-   * Example Input: fa4chba4c
-   * Desired Characters: abc
-   * TC O(n)
-   * SC O(1)
-   * */
-  public static String getShortestSubstring(String input, String characters){
-        int windowStartIndex =0;
-        int smallestWindowStartIndex=0, smallestWindowEndIndex =0;
+
+    /**
+     * Given a string and n characters, find the shortest substring that contains all desired characters
+     * Example Input: fa4chba4c
+     * Desired Characters: abc
+     * TC O(n)
+     * SC O(1)
+     */
+    public static String getShortestSubstring(String input, String characters) {
+        int windowStartIndex = 0;
+        int smallestWindowStartIndex = 0, smallestWindowEndIndex = 0;
         StringBuilder result = new StringBuilder();
-      Map<Character, Integer> neededCharCounts = new HashMap<>() ;
-      for(Character ch : characters.toCharArray()){
-          if(neededCharCounts.containsKey(ch)){
+        Map<Character, Integer> neededCharCounts = new HashMap<>();
+        for (Character ch : characters.toCharArray()) {
+            if (neededCharCounts.containsKey(ch)) {
 
-              neededCharCounts.put(ch,neededCharCounts.get(ch)+1);
-          }else{
-              neededCharCounts.put(ch,1);
-          }
-      }
-      char [] inputArray = input.toCharArray();
+                neededCharCounts.put(ch, neededCharCounts.get(ch) + 1);
+            } else {
+                neededCharCounts.put(ch, 1);
+            }
+        }
+        char[] inputArray = input.toCharArray();
 
-      int   missingCharCount = characters.length();
-      for (int windowEndIndex = 0; windowEndIndex < input.length(); windowEndIndex++) {
-          char ch = inputArray[windowEndIndex];
+        int missingCharCount = characters.length();
+        for (int windowEndIndex = 0; windowEndIndex < input.length(); windowEndIndex++) {
+            char ch = inputArray[windowEndIndex];
 
-          if(neededCharCounts.containsKey(ch)){
-              if(neededCharCounts.get(ch) > 0) missingCharCount --;
-              neededCharCounts.put(ch, neededCharCounts.get(ch) -1);
-          }
-          if(missingCharCount !=0){
-            char leftChar = inputArray[windowStartIndex];
-              while (windowStartIndex < windowEndIndex && (!( neededCharCounts.containsKey(leftChar)) || neededCharCounts.get(leftChar) < 0)) {
-                  if (neededCharCounts.containsKey(leftChar)) neededCharCounts.put(ch, neededCharCounts.get(ch) +1);
-                  windowStartIndex++;
-                  leftChar = inputArray[windowStartIndex];
-              }
-              if ( (windowEndIndex - windowStartIndex) < (smallestWindowEndIndex - smallestWindowStartIndex)) {
-                  smallestWindowStartIndex = windowStartIndex;
-                  smallestWindowEndIndex = windowEndIndex;
-              }
-          }
-      }
-      for(int i = smallestWindowStartIndex; i<smallestWindowEndIndex+1; i++){
-          result.append(inputArray[i]);
-      }
-      return result.toString();
-  }
+            if (neededCharCounts.containsKey(ch)) {
+                if (neededCharCounts.get(ch) > 0) missingCharCount--;
+                neededCharCounts.put(ch, neededCharCounts.get(ch) - 1);
+            }
+            if (missingCharCount != 0) {
+                char leftChar = inputArray[windowStartIndex];
+                while (windowStartIndex < windowEndIndex && (!(neededCharCounts.containsKey(leftChar)) || neededCharCounts.get(leftChar) < 0)) {
+                    if (neededCharCounts.containsKey(leftChar)) neededCharCounts.put(ch, neededCharCounts.get(ch) + 1);
+                    windowStartIndex++;
+                    leftChar = inputArray[windowStartIndex];
+                }
+                if ((windowEndIndex - windowStartIndex) < (smallestWindowEndIndex - smallestWindowStartIndex)) {
+                    smallestWindowStartIndex = windowStartIndex;
+                    smallestWindowEndIndex = windowEndIndex;
+                }
+            }
+        }
+        for (int i = smallestWindowStartIndex; i < smallestWindowEndIndex + 1; i++) {
+            result.append(inputArray[i]);
+        }
+        return result.toString();
+    }
 
+
+
+    public static int countGoodSubstrings(String s) {
+        int count =0;
+        char[] arr = s.toCharArray();
+        for (int i = 0;i<s.length()-3;i++ ) {
+            if(arr[i] != arr[i+1] && arr[i+1] !=arr[i+2] && arr[i]!=arr[i+2]) count ++;
+        }
+        return count;
+    }
 
     public static void main(String[] args) {
-        findSum(9, new int []{1,2,3,4,5,6,7,8,9});
-        System.out.println(getMaxSubarray(2,new int []{-1,2,3,1,-3,2}));
-      // findSumNegative(5,new int []{-1,2,3,1,-3,2});
-        findMaxFromZeroOne(new int[]{0,1,0,1,0,0,1,1}, 2);
-        getShortestSubstring("gho8cbb","cbb");
+        findSum(9, new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+        System.out.println(getMaxSubarray(2, new int[]{-1, 2, 3, 1, -3, 2}));
+        // findSumNegative(5,new int []{-1,2,3,1,-3,2});
+        findMaxFromZeroOne(new int[]{0, 1, 0, 1, 0, 0, 1, 1}, 2);
+        getShortestSubstring("gho8cbb", "cbb");
+        System.out.println(findMaxAverage(new int[]{0, 1, 1, 3, 3}, 4));
     }
 
 }
