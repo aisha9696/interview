@@ -192,6 +192,30 @@ public class SlidingWindow {
       return result.toString();
   }
 
+    public static double findMaxAverage(int[] nums, int k) {
+        if(nums.length < 0 || k <0){
+            return 0;
+        }
+
+
+        int currentSum =0, maxSum =0, startIndex = 0;
+        double maxDev = 0.0;
+
+        for(int i = 0; i<=nums.length-k; i++){
+            for(int s = startIndex; s<startIndex+k;s ++){
+                currentSum += nums[s];
+            }
+            if(currentSum > maxSum){
+                maxSum=currentSum;
+            }
+            currentSum = 0;
+            startIndex++;
+        }
+        maxDev = (double) maxSum / k;
+
+        return maxDev;
+    }
+
 
     public static void main(String[] args) {
         findSum(9, new int []{1,2,3,4,5,6,7,8,9});
@@ -199,6 +223,8 @@ public class SlidingWindow {
       // findSumNegative(5,new int []{-1,2,3,1,-3,2});
         findMaxFromZeroOne(new int[]{0,1,0,1,0,0,1,1}, 2);
         getShortestSubstring("gho8cbb","cbb");
+        System.out.println(findMaxAverage(new int[]{1,12,-5,-6,50,3}, 4));
     }
+
 
 }
