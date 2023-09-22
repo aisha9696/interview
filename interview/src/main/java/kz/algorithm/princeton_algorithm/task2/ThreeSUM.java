@@ -1,6 +1,6 @@
 package kz.algorithm.princeton_algorithm.task2;
 
-import kz.algorithm.data_structure.sort.QuickSort;
+import kz.algorithm.algorithm.sort.QuickSort;
 
 public class ThreeSUM {
     private static QuickSort quickSort = new QuickSort();

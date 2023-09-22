@@ -1,6 +1,8 @@
 package kz.algorithm.data_structure.hash_table;
 
 
+import java.util.HashMap;
+
 public class HashTNode {
     private Integer key;
     private Integer value;

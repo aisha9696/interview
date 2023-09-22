@@ -1,7 +1,6 @@
 package kz.algorithm.princeton_algorithm.percolation;
 
 
-import kz.algorithm.data_structure.quick_find.QuickUnionWeightedComp;
 /*
 public class Percolation {
     int[][] desk;

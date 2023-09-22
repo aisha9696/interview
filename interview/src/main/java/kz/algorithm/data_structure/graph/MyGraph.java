@@ -34,7 +34,7 @@ public class MyGraph {
     }
     private boolean hasPathDFS(MyNode s, MyNode d, HashSet<Integer> visited){
         if(visited.contains(s.vertex)){
-            return false;
+            return false;   
         }
         visited.add(s.vertex);
         if(s == d){
