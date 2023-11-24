@@ -1,11 +1,11 @@
 package kz.algorithm.princeton_algorithm.percolation;
-
+/*
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
-/*
+
 public class PercolationVizualizer {
     Map<Integer, Map<Integer, Integer>> jbuttons;
     int num;

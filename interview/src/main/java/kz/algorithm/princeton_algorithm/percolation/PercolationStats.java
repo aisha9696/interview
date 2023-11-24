@@ -80,7 +80,7 @@ public class PercolationStats {
     public static void main(String[] args) {
         PercolationStats stats =new PercolationStats(10, 100);
         System.out.println("mean="+stats.mean()+" stddev="+stats.stddev());
-        StdOut.println("95% confidence interval = "+ stats.confidenceLo() +", "+ stats.confidenceHi() );
+      ///  StdOut.println("95% confidence interval = "+ stats.confidenceLo() +", "+ stats.confidenceHi() );
     }
 
 }*/

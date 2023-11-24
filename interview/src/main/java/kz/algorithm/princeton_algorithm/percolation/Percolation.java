@@ -1,7 +1,8 @@
 package kz.algorithm.princeton_algorithm.percolation;
-
-
 /*
+
+import kz.algorithm.algorithm.quick_find.QuickUnionWeightedComp;
+
 public class Percolation {
     int[][] desk;
     int n;
@@ -60,12 +61,12 @@ public class Percolation {
 
     // is the site (row, col) full?
     public boolean isFull(int row, int col) {
-        /*if (this.desk[(row + 1 > n) ? n - 1 : row + 1][col] == 1) isfull = true;
+        if (this.desk[(row + 1 > n) ? n - 1 : row + 1][col] == 1) isfull = true;
         if (this.desk[(row - 1 < 0) ? 0 : row - 1][col] == 1) isfull = true;
         if (this.desk[row][(col + 1 > n) ? n : col + 1] == 1) isfull = true;
-        if (this.desk[row][(col - 1 < 0) ? 0 : col - 1] == 1) isfull = true;*/
+        if (this.desk[row][(col - 1 < 0) ? 0 : col - 1] == 1) isfull = true;
 
-       /* return (this.quwc.connected(number_desk[row][col], vtop)?true:false);
+        return (this.quwc.connected(number_desk[row][col], vtop)?true:false);
 
     }
 
@@ -114,4 +115,5 @@ public class Percolation {
     public static void main(String[] args) {
 
     }
-}*/
+}
+*/
